@@ -17,8 +17,35 @@ int load_save_menu(bool mode);
 void update_volume(int buttons);
 void play_credits(SDL_Surface *buffer);
 
+char homepath[512]; // path to ~/.jnb
+char savefile[512]; // path to ~/.jnb/saves
+
 void menu(SDL_Surface *buffer)
 {
+	// init paths
+#ifndef WIN32
+	char *home = getenv("HOME");
+
+	if(home)
+		sprintf(homepath, "%s/.jnb", home);
+
+	mkdir(homepath, 0777);
+	if(!errno) {
+		getcwd(homepath, 512);
+		strcat(homepath, "/.jnb");
+		mkdir(homepath, 0777);
+	}
+
+	sprintf(savefile, "%s/saves", homepath);
+#else
+	getcwd(homepath, 512);
+	strcat(homepath, "/.jnb");
+	mkdir(homepath);
+
+	sprintf(savefile, "%s/saves", homepath);
+#endif
+
+
 	int buttons=get_button_state();
 	bool exit=false;
 	reset_buttons();
@@ -1484,7 +1511,7 @@ bool skip_intro()
 
 void save_game(int saveslots[4])
 {
-	std::ofstream outfile("saves",std::ios_base::binary);
+	std::ofstream outfile(savefile,std::ios_base::binary);
 	outfile.write((char*)&saveslots[0],sizeof(int));
 	outfile.write((char*)&saveslots[1],sizeof(int));
 	outfile.write((char*)&saveslots[2],sizeof(int));
@@ -1493,7 +1520,7 @@ void save_game(int saveslots[4])
 
 void load_game(int saveslots[4])
 {
-	std::ifstream infile("saves",std::ios_base::binary);
+	std::ifstream infile(savefile,std::ios_base::binary);
 	if(infile.is_open())
 	{
 		infile.read((char*)&saveslots[0],sizeof(int));
