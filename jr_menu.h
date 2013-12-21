@@ -458,7 +458,7 @@ bool play_stage(int stage_num)
 			blob.draw(buffer);
 			map.jr_map::draw_fg_layer(buffer,0,0);
 			blob.draw_panel(buffer);
-			if(txt_anim_counter<512)
+			/*if(txt_anim_counter<512)
 			{
 				if(map_num<3 || (stage_num==3 && map_num<4))
 				{
@@ -469,7 +469,7 @@ bool play_stage(int stage_num)
 					BlitSurface(boss_battle_txt,0,0,boss_battle_txt->w/2,boss_battle_txt->h,buffer,160-boss_battle_txt->w/4,100);
 				};
 				txt_anim_counter++;
-			};
+			};*/
 			if(((map_num==3 && stage_num!=3) || (map_num==4)) && !map.enemys_remaining())
 			{
 				//BlitSurface(victory_txt,((txt_anim_counter-512)/64)*victory_txt->w/2,0,victory_txt->w/2,victory_txt->h,buffer,160-victory_txt->w/4,100);

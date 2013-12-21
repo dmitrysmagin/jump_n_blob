@@ -1331,6 +1331,13 @@ class jr_player
 			int selection=0;
 			SDL_Rect inventory_rect;
 			int buttons;
+
+			// hackfix
+			map->jr_map::draw(buffer,0,0);
+			draw(buffer);
+			map->jr_map::draw_fg_layer(buffer,0,0);
+			draw_panel(buffer);
+
 			do
 			{
 				buttons=get_button_state();

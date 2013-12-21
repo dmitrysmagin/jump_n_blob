@@ -1,16 +1,22 @@
 # A basic Makefile to compile for SDL 
 
-CC = mipsel-linux-g++
-LD = $(CC)
-STRIP = mipsel-linux-strip
+#GCW0 = 1
 
-NAME=jnb
+ifdef GCW0
+    CC = mipsel-linux-g++
+    LD = $(CC)
+else
+    CC = g++
+    LD = $(CC)
+endif
+
+NAME = jnb
 
 TARGET= bin/$(NAME)
 
 DEFS =
 
-CFLAGS = `sdl-config --cflags`
+CFLAGS = -Wall -O2 `sdl-config --cflags`
 INCS =  -I.
 
 LDFLAGS=$(CFLAGS) 
@@ -27,7 +33,6 @@ sdl: $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(LD) $(LDFLAGS) $(OBJS) -o $@ $(LIBS)
-	$(STRIP) $@
 
 .cpp.o:
 	$(MYCC) -c $< -o $@
