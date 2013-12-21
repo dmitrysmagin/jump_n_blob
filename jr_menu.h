@@ -1840,15 +1840,16 @@ void play_blob_intro(SDL_Surface *screen)
 		limit_frames(60);
 	};
 
-	BlitSurface(images[8],0,0,images[8]->w,images[8]->h,screen,0,0);
-
-	strip.y=0;
-	SDL_FillRect(screen,&strip,SDL_MapRGB(screen->format,0,0,0));
-	strip.y=200;
-	SDL_FillRect(screen,&strip,SDL_MapRGB(screen->format,0,0,0));
-	stringRGBA(screen,138,215,"until now",255,255,255,255);
 	for(int i=0;i<300;++i)
 	{
+		BlitSurface(images[8],0,0,images[8]->w,images[8]->h,screen,0,0);
+
+		strip.y=0;
+		SDL_FillRect(screen,&strip,SDL_MapRGB(screen->format,0,0,0));
+		strip.y=200;
+		SDL_FillRect(screen,&strip,SDL_MapRGB(screen->format,0,0,0));
+		stringRGBA(screen,138,215,"until now",255,255,255,255);
+
 		SDL_Flip(screen);
 		limit_frames(60);
 	}
